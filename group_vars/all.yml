@@ -1,0 +1,4 @@
+---
+env: dev
+host_group: all
+project_version: 1.0

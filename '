@@ -1,0 +1,17 @@
+---
+- name: Sample Ansible Playbook for AWX
+  hosts: all
+  become: yes
+  vars:
+    env: "{{ env | default('dev') }}"
+    host_group: "{{ host_group | default('all') }}"
+  tasks:
+    - name: Ensure a package is installed
+      package:
+        name: vim
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Print environment details
+      debug:
+        msg: "Running in {{ env }} environment on {{ host_group }} group"
