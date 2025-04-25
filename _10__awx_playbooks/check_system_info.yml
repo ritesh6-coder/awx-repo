@@ -1,0 +1,19 @@
+- name: Gather kernel and reboot info for ansible_node1
+  hosts: ansible_node1
+  tasks:
+    - name: Gather system facts
+      ansible.builtin.setup:
+      register: system_facts
+
+    - name: Display latest kernel version
+      ansible.builtin.debug:
+        msg: "Latest kernel version: {{ ansible_kernel }}"
+
+    - name: Get last reboot time
+      ansible.builtin.command: last -1 reboot
+      register: reboot_history
+      changed_when: false
+
+    - name: Display last reboot history
+      ansible.builtin.debug:
+        msg: "Last reboot: {{ reboot_history.stdout_lines[0] }}"
